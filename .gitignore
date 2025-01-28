@@ -47,3 +47,19 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+
+fastq_qc/
+fastq_trimmed/
+fastq_trimmed_qc/
+genome/
+genome_alignment/
+multiqc_report_all_ipynb_data/
+pipeline/
+qc/
+subfiles/
+trimmed/
+alignment/
+assignment.txt
+multiqc_report_all_ipynb_1.html
+multiqc_report_1.html
