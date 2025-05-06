@@ -82,15 +82,20 @@ volcano_plot <- volcano_data |>
 ggsave("plots/volcano_plot.png")
 
 volcano_plot_2 <- volcano_data |> 
-    mutate(colour.grp = ifelse(log2FoldChange > 1.6, yes = "above", no = "nothing")) |>
-    mutate(colour.grp = ifelse(log2FoldChange < -1.6, yes = "below", no = colour.grp))|>
+    mutate(colour.grp = ifelse(log2FoldChange > 2, yes = "Upregulated", no = "Not significant")) |>
+    mutate(colour.grp = ifelse(log2FoldChange < -2, yes = "Downregulated", no = colour.grp))|>
     ggplot( aes(x = log2FoldChange, y = -log10(pvalue), colour=colour.grp)) +
     scale_colour_manual(values = c("green", "red", "grey"),
                         labels = c("Upregulated","Downregulated", "Not significant"))+
     geom_point() +
     geom_hline(yintercept = -log10(0.05)) +
     geom_vline(xintercept = 2) +
-    geom_vline(xintercept = -2) +
+    geom_vline(xintercept = -2) +  
+    geom_label_repel(data = subset(volcano_data, padj < 0.05 & abs(log2FoldChange) > 2),
+                   aes(label = label), # replace 'gene' with your actual gene name column
+                   box.padding = 0.3,
+                   point.padding = 0.2,
+                   segment.color = 'grey50') +
     ggtitle("Gene Expression")+
     theme_gray()
 # volcano_plot_2
